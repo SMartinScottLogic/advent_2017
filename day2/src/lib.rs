@@ -44,25 +44,18 @@ impl utils::Solution for Solution {
     }
 
     fn answer_part2(&self, _is_full: bool) -> Self::Result {
+        let mut r = 0;
+        for row in &self.rows {
+            'found: for a in row {
+                for b in row {
+                    if a > b && a%b==0 {
+                        r += a / b;
+                        break 'found;
+                    }
+                }
+            }
+        }
         // Implement for problem
-        Ok(0)
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-    use std::io::BufReader;
-
-    use tracing_test::traced_test;
-    use utils::Solution;
-
-    #[test]
-    #[traced_test]
-    fn read() {
-        let input = "replace for problem";
-        let r = BufReader::new(input.as_bytes());
-        let s = crate::Solution::try_from(r).unwrap();
-        assert_eq!(0 as ResultType, s.answer_part1(false).unwrap());
+        Ok(r)
     }
 }
